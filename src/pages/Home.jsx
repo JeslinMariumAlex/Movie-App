@@ -1,7 +1,11 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
+import { useState } from "react";
 
 function Home() {
+  // State to manage the search query
+  const [searchQuery, setSearchQuery] = useState("");
+
   // Sample data for movies
   const movies = [
     {
@@ -22,7 +26,11 @@ function Home() {
   ];
 
   // Function to handle search form submission
-  const handleSearch = () => {};
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    alert(searchQuery);
+    setSearchQuery(""); // Clear the search input after submission
+  };
 
   return (
     <div className="home">
@@ -31,13 +39,20 @@ function Home() {
           type="text"
           placeholder="Search for movies..."
           className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button type="submit" className="search-button">Search</button>
+        <button type="submit" className="search-button">
+          Search
+        </button>
       </form>
       <div className="movie-grid">
-        {movies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
+        {movies.map(
+          (movie) =>
+            movie.title.toLowerCase().startsWith(searchQuery) && (
+              <MovieCard movie={movie} key={movie.id} />
+            )
+        )}
       </div>
     </div>
   );
