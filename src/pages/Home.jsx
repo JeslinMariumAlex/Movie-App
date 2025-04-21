@@ -1,6 +1,7 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
 import { useState } from "react";
+import "../css/Home.css"; // Importing CSS for styling
 
 function Home() {
   // State to manage the search query

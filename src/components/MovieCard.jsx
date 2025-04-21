@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/MovieCard.css' // Importing CSS for styling
 
 function MovieCard({ movie }) { 
 
