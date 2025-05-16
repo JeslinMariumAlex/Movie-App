@@ -1,30 +1,27 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPopularMovies, searchMovies } from "../services/api";
 import "../css/Home.css"; // Importing CSS for styling
 
 function Home() {
   // State to manage the search query
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Sample data for movies
-  const movies = [
-    {
-      id: 1,
-      title: "Inception",
-      year: 2010,
-    },
-    {
-      id: 2,
-      title: "Interstellar",
-      year: 2014,
-    },
-    {
-      id: 3,
-      title: "The Dark Knight",
-      year: 2008,
-    },
-  ];
+  const [movies, setMovies] = useState([]); // State to manage the list of movies
+  const [error, setError] = useState(null); // State to manage errors
+  const [loading, setLoading] = useState(true); // State to manage loading state
+
+  useEffect(() => {
+    // Function to load popular movies
+    const loadPopularMovies = async () => {
+      try{
+        const popularMovies = await getPopularMovies(); // Fetch popular movies from the API
+        setMovies(popularMovies); // Update the state with the fetched movies
+      } catch (error) {}
+      finally {}
+    }; 
+  }, []);
 
   // Function to handle search form submission
   const handleSearch = (e) => {
